@@ -1,0 +1,17 @@
+# Automatically generated on {{ timestamp }}
+universe = vanilla
+should_transfer_files = YES
+
+executable = worker.sh
+arguments = $(url) {{ destination }}
+transfer_input_files = postprocess.py,keep_and_drop.txt
+transfer_output_files = ""
+output = logs/$(jobid).out
+error = logs/$(jobid).err
+log = logs/$(jobid).log
+
+{% for command, value in commands.iteritems() %}
+{{ command }} = {{ value }}
+{% endfor %}
+
+queue
