@@ -28,8 +28,11 @@ def main():
             '    || (Sum$(Muon_pt > 20) == 0 && Sum$(Electron_pt > 20 && Electron_mvaSpring16GP_WP90) == 0 && MET_pt > 80))'
             '&& Sum$(abs(Jet_eta) < 2.5 && Jet_pt > 20 && Jet_jetId) >= 2'
         ),
+        # The path to a text file describing which branches to keep and drop.
         branchsel='keep_and_drop.txt',
+        # Additional postprocessing modules which add additional selections and branches.
         modules=[vhbb()],
+        # Preserve input file provenance information.
         provenance=True,
     )
 
