@@ -1,5 +1,6 @@
 import errno
 import os
+import re
 import subprocess
 
 
@@ -22,17 +23,28 @@ def safe_makedirs(path):
             raise
 
 
-def eos_makedirs(path):
-    """Recursively create an EOS directory."""
-    subprocess.check_call(['xrdfs', 'root://cmseos.fnal.gov', 'mkdir', '-p', path])
+XROOTD_URL_RE = re.compile(r'^(?P<redirector>root://[^/]+)//(?P<path>.*)$')
 
 
-def eos_isdir(path):
-    """Return true if the path is an EOS directory."""
+def parse_xrootd_url(url):
+    """Return the redirector and path from an XRootD url."""
+    match = XROOTD_URL_RE.match(url)
+    return match.group('redirector'), match.group('path')
+
+
+def xrdfs_makedirs(url):
+    """Recursively create an xrdfs directory."""
+    redirector, path = parse_xrootd_url(url)
+    subprocess.check_call(['xrdfs', redirector, 'mkdir', '-p', path])
+
+
+def xrdfs_isdir(url):
+    """Return True if the url is a directory."""
+    redirector, path = parse_xrootd_url(url)
     try:
         # Redirect stderr messages such as "[ERROR] Query response negative" to /dev/null.
         with open(os.devnull, 'w') as devnull:
-            subprocess.check_output(['xrdfs', 'root://cmseos.fnal.gov', 'stat', '-q', 'IsDir', path], stderr=devnull)
+            subprocess.check_output(['xrdfs', redirector, 'stat', '-q', 'IsDir', path], stderr=devnull)
     except subprocess.CalledProcessError as e:
         if e.returncode == 55:
             return False
@@ -42,16 +54,17 @@ def eos_isdir(path):
         return True
 
 
-def eos_locate_root_files(path):
-    """Recurse into an EOS directory hosted at CMS LPC
-    and return the paths of all ROOT files encountered.
+def xrdfs_locate_root_files(url):
+    """Recurse into a directory and return the urls of all ROOT files encountered.
     """
-    root_files = []
-    output = subprocess.check_output(['xrdfs', 'root://cmseos.fnal.gov', 'ls', path]).splitlines()
+    redirector, path = parse_xrootd_url(url)
+    urls = []
+    output = subprocess.check_output(['xrdfs', redirector, 'ls', path]).splitlines()
     for path in output:
+        url = '//'.join([redirector, path])
         if os.path.splitext(path)[1] == '.root':
-            root_files.append(path)
-        elif eos_isdir(path):
-            root_files.extend(eos_locate_root_files(path))
-    return root_files
+            urls.append(url)
+        elif xrdfs_isdir(url):
+            urls.extend(xrdfs_locate_root_files(url))
+    return urls
 

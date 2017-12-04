@@ -33,14 +33,12 @@ class PostProcessJobs(object):
 
         Parameters
         ----------
-        src : path
-            The EOS path of the directory containing the ntuples to postprocess. Any .root
-            files are automatically located by recursing through subdirectories. The path
-            should not include the XRootD redirector, e.g. starts with /store/user/.
-        dst : path
-            The EOS path of the output directory for the postprocessed ntuples. The directory
-            will only be created if jobs are submitted. The path should not include the XRootD
-            redirectory, e.g. starts with /store/user/.
+        src : url
+            The XRootD url of the directory containing the ntuples to postprocess.
+            Any .root files are automatically located by recursing through subdirectories.
+        dst : url
+            The XRootD url of the output directory for the postprocessed ntuples.
+            The directory will only be created if jobs are submitted.
         tag : str, optional
             The name of the parent directory for the generated job submission
             files. The default is the current timestamp.
@@ -73,8 +71,8 @@ class PostProcessJobs(object):
         context = {
             'timestamp': time.strftime('%a %b %d %H:%M:%S %Z %Y'),
             'environ': os.environ,
-            'urls': ['root://cmseos.fnal.gov//{0}'.format(path) for path in utils.eos_locate_root_files(src)],
-            'destination': 'root://cmseos.fnal.gov//{0}'.format(dst),
+            'urls': utils.xrdfs_locate_root_files(src),
+            'destination': dst,
             'commands': commands,
         }
         dag_path = os.path.join(dagdir, 'dag')
@@ -87,7 +85,7 @@ class PostProcessJobs(object):
         if no_submit:
             print 'HTCondor DAG input file generated but not submitted: {0}'.format(dag_path)
         else:
-            utils.eos_makedirs(dst)
+            utils.xrdfs_makedirs(dst)
             subprocess.check_call(['condor_submit_dag', '-usedagdir', dag_path, '-maxjobs', '250'])
 
     def _generate_from_template(self, name, path, context):
