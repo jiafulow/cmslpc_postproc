@@ -69,26 +69,31 @@ class PostProcessJobs(object):
         if not tag:
             tag = time.strftime('%Y%m%d_%H%M%S')
         dagdir = os.path.join(os.getcwd(), 'PostProcessDAGs', tag)
-        logdir = os.path.join(dagdir, 'logs')
-        utils.safe_makedirs(logdir)
-        # Generate the job submission files.
-        context = {
-            'timestamp': time.strftime('%a %b %d %H:%M:%S %Z %Y'),
-            'environ': os.environ,
-            'urls': utils.xrdfs_locate_root_files(src),
-            'destination': dst,
-            'is_data': is_data,
-            'commands': commands,
-        }
         dag_path = os.path.join(dagdir, 'dag')
-        self._generate_from_template('dag_input_file', dag_path, context)
-        self._generate_from_template('node_submit_description', os.path.join(dagdir, 'node'), context)
-        self._generate_from_template('worker.sh', os.path.join(dagdir, 'worker.sh'), context)
-        self._generate_from_template('postprocess.py', os.path.join(dagdir, 'postprocess.py'), context)
-        shutil.copy(os.path.join(TEMPLATE_DIR, 'keep_and_drop.txt'), dagdir)
+        dag_exists = True if os.path.isfile(dag_path) else False
+        if not dag_exists:
+            logdir = os.path.join(dagdir, 'logs')
+            utils.safe_makedirs(logdir)
+            # Generate the job submission files.
+            context = {
+                'timestamp': time.strftime('%a %b %d %H:%M:%S %Z %Y'),
+                'environ': os.environ,
+                'urls': utils.xrdfs_locate_root_files(src),
+                'destination': dst,
+                'is_data': is_data,
+                'commands': commands,
+            }
+            self._generate_from_template('dag_input_file', dag_path, context)
+            self._generate_from_template('node_submit_description', os.path.join(dagdir, 'node'), context)
+            self._generate_from_template('worker.sh', os.path.join(dagdir, 'worker.sh'), context)
+            self._generate_from_template('postprocess.py', os.path.join(dagdir, 'postprocess.py'), context)
+            shutil.copy(os.path.join(TEMPLATE_DIR, 'keep_and_drop.txt'), dagdir)
         # Unless otherwise directed, submit the DAG input file to DAGMan.
         if no_submit:
-            print 'HTCondor DAG input file generated but not submitted: {0}'.format(dag_path)
+            if dag_exists:
+                print 'HTCondor DAG input file exists but not submitted: {0}'.format(dag_path)
+            else:
+                print 'HTCondor DAG input file generated but not submitted: {0}'.format(dag_path)
         else:
             utils.xrdfs_makedirs(dst)
             subprocess.check_call(['condor_submit_dag', '-usedagdir', dag_path, '-maxjobs', '250'])
