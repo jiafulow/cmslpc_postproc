@@ -96,7 +96,7 @@ class PostProcessJobs(object):
                 print 'HTCondor DAG input file generated but not submitted: {0}'.format(dag_path)
         else:
             utils.xrdfs_makedirs(dst)
-            subprocess.check_call(['condor_submit_dag', '-usedagdir', dag_path, '-maxjobs', '250'])
+            subprocess.check_call(['condor_submit_dag', '-usedagdir', '-maxjobs', '250', dag_path])
 
     def _generate_from_template(self, name, path, context):
         """Generate a job submission file by rendering its template.
