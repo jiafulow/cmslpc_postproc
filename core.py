@@ -21,7 +21,7 @@ class PostProcessJobs(object):
             trim_blocks=True,
         )
 
-    def submit(self, src, dst, tag=None, commands={}, no_submit=False):
+    def submit(self, src, dst, tag=None, is_data=False, commands={}, no_submit=False):
         """Submit postprocessing jobs to HTCondor's DAGMan.
 
         DAGMan jobs can be retried automatically and should jobs fail, users can
@@ -42,6 +42,10 @@ class PostProcessJobs(object):
         tag : str, optional
             The name of the parent directory for the generated job submission
             files. The default is the current timestamp.
+        is_data : bool, optional
+            Whether the ntuples are data or Monte-Carlo. This determines the
+            postprocessing modules in the postprocessing template script.
+            The default is False for Monte-Carlo.
         commands : dict, optional
             HTCondor commands to include in the submit description file, in addition to the
             following which are handled automatically:
@@ -73,13 +77,14 @@ class PostProcessJobs(object):
             'environ': os.environ,
             'urls': utils.xrdfs_locate_root_files(src),
             'destination': dst,
+            'is_data': is_data,
             'commands': commands,
         }
         dag_path = os.path.join(dagdir, 'dag')
         self._generate_from_template('dag_input_file', dag_path, context)
         self._generate_from_template('node_submit_description', os.path.join(dagdir, 'node'), context)
         self._generate_from_template('worker.sh', os.path.join(dagdir, 'worker.sh'), context)
-        shutil.copy(os.path.join(TEMPLATE_DIR, 'postprocess_{0}.py'.format(self.datatype)), os.path.join(dagdir, 'postprocess.py'))
+        self._generate_from_template('postprocess.py', os.path.join(dagdir, 'postprocess.py'), context)
         shutil.copy(os.path.join(TEMPLATE_DIR, 'keep_and_drop.txt'), dagdir)
         # Unless otherwise directed, submit the DAG input file to DAGMan.
         if no_submit:

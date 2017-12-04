@@ -31,7 +31,11 @@ def main():
         # The path to a text file describing which branches to keep and drop.
         branchsel='keep_and_drop.txt',
         # Additional postprocessing modules which add additional selections and branches.
+{% if is_data %}
         modules=[vhbb()],
+{% else %}
+        modules=[btagSFProducer('cmva'), jecUncertAll_cppOut(), vhbb()],
+{% endif %}
         # Preserve input file provenance information.
         provenance=True,
     )
