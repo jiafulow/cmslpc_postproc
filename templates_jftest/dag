@@ -1,0 +1,7 @@
+# Automatically generated on {{ timestamp }}
+{% for url in urls %}
+JOB job{{ loop.index }} node
+VARS job{{ loop.index }} url="{{ url }}"
+VARS job{{ loop.index }} jobid="{{ loop.index }}"
+RETRY job{{ loop.index }} 2
+{% endfor %}

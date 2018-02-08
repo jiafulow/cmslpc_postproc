@@ -2,6 +2,8 @@ import errno
 import os
 import re
 import subprocess
+import glob
+import tarfile
 
 
 def safe_makedirs(path):
@@ -68,3 +70,16 @@ def xrdfs_locate_root_files(url):
             urls.extend(xrdfs_locate_root_files(url))
     return urls
 
+def pack_files(name='default.tgz', mode='w:gz', files=None):
+    """Add user files into a tarball
+    """
+    files = files or []
+    with tarfile.open(name, mode) as tar:
+        for globname in files:
+            filenames = glob.glob(globname)
+            if not filenames:
+                raise Exception("The input file '%s' cannot be found." % globname)
+            for filename in filenames:
+                directory = os.path.basename(filename)
+                tar.add(filename, directory, recursive=True)
+    return

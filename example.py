@@ -1,27 +1,35 @@
 import os
 
-from cmslpc_postproc import PostProcessJobs
+from core import PostProcessJobs
 
 
 jobs = PostProcessJobs()
 
+
+input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_9_2_3_patch1/src/L1TMuonSimulations/Analyzers/test2/'
+input_files = ['rootpy_trackbuilding3.py', 'histos_tb.8.npz', 'encoder.8.npz', 'model.8.h5', 'model_weights.8.h5', 'bpca.8.npz']
+prepend_input_dir = lambda x: os.path.join(input_dir, x)
+jobs.pack(map(prepend_input_dir, input_files))
+
 jobs.submit(
-    tag='SingleMuon_Run2017C',
-    src='root://cmseos.fnal.gov///store/group/lpchbb/NanoTestProd010/SingleMuon/Data-NanoCrabProd010/171128_160020/',
-    dst='root://cmseos.fnal.gov///store/user/sjwang/NanoTestPostProc/SingleMuon/Data-NanoCrabProd010/Run2017C/',
-    is_data=True,
+    tag='jftest1',
+    src=range(10),
+    dst='',
+    analysis='rates',
     no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
 )
 
 jobs.submit(
-    tag='TT_powheg',
-    src='root://cmseos.fnal.gov///store/group/lpchbb/NanoTestProd010/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/RunIISummer17MiniAOD-92X-NanoCrabProd010/171128_160136/',
-    dst='root://cmseos.fnal.gov///store/user/sjwang/NanoTestPostProc/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/',
-    commands={
-        'x509userproxy': os.environ['X509_USER_PROXY'],
-        # The maximum runtime in seconds.
-        '+MaxRuntime': 3600,
-    },
+    tag='jftest2',
+    src=range(10),
+    dst='',
+    analysis='effie',
     no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
 )
 

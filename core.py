@@ -8,7 +8,8 @@ import jinja2
 import utils
 
 
-TEMPLATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
+#TEMPLATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
+TEMPLATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates_jftest'))
 
 
 class PostProcessJobs(object):
@@ -21,7 +22,7 @@ class PostProcessJobs(object):
             trim_blocks=True,
         )
 
-    def submit(self, src, dst, tag=None, is_data=False, commands={}, no_submit=False):
+    def submit(self, src, dst, analysis=None, tag=None, is_data=False, commands={}, no_submit=False):
         """Submit postprocessing jobs to HTCondor's DAGMan.
 
         DAGMan jobs can be retried automatically and should jobs fail, users can
@@ -39,6 +40,8 @@ class PostProcessJobs(object):
         dst : url
             The XRootD url of the output directory for the postprocessed ntuples.
             The directory will only be created if jobs are submitted.
+        analysis : str, optional
+            The analysis mode used in the user script.
         tag : str, optional
             The name of the parent directory for the generated job submission
             files. The default is the current timestamp.
@@ -70,7 +73,8 @@ class PostProcessJobs(object):
             tag = time.strftime('%Y%m%d_%H%M%S')
         dagdir = os.path.join(os.getcwd(), 'PostProcessDAGs', tag)
         dag_path = os.path.join(dagdir, 'dag')
-        dag_exists = True if os.path.isfile(dag_path) else False
+        #dag_exists = True if os.path.isfile(dag_path) else False
+        dag_exists = False  # pretend dag never exists, so that all the files are regenerated
         if not dag_exists:
             logdir = os.path.join(dagdir, 'logs')
             utils.safe_makedirs(logdir)
@@ -78,16 +82,20 @@ class PostProcessJobs(object):
             context = {
                 'timestamp': time.strftime('%a %b %d %H:%M:%S %Z %Y'),
                 'environ': os.environ,
-                'urls': utils.xrdfs_locate_root_files(src),
+                #'urls': utils.xrdfs_locate_root_files(src),
+                'urls': src,
+                'analysis': analysis,
                 'destination': dst,
                 'is_data': is_data,
                 'commands': commands,
             }
-            self._generate_from_template('dag_input_file', dag_path, context)
-            self._generate_from_template('node_submit_description', os.path.join(dagdir, 'node'), context)
+            self._generate_from_template('dag', dag_path, context)
+            self._generate_from_template('node', os.path.join(dagdir, 'node'), context)
+            shutil.copy(os.path.join(TEMPLATE_DIR, 'worker.sh'), dagdir)  # preserve executable permission on worker.sh
             self._generate_from_template('worker.sh', os.path.join(dagdir, 'worker.sh'), context)
-            self._generate_from_template('postprocess.py', os.path.join(dagdir, 'postprocess.py'), context)
-            shutil.copy(os.path.join(TEMPLATE_DIR, 'keep_and_drop.txt'), dagdir)
+            shutil.copy(os.path.join(TEMPLATE_DIR, 'default.tgz'), dagdir)
+            #self._generate_from_template('postprocess.py', os.path.join(dagdir, 'postprocess.py'), context)
+            #shutil.copy(os.path.join(TEMPLATE_DIR, 'keep_and_drop.txt'), dagdir)
         # Unless otherwise directed, submit the DAG input file to DAGMan.
         if no_submit:
             if dag_exists:
@@ -107,8 +115,8 @@ class PostProcessJobs(object):
         ----------
         name : str
             The name of the template. The available templates are:
-                * dag_input_file
-                * node_submit_description
+                * dag
+                * node
                 * worker.sh
         path : path
             The output file path.
@@ -120,3 +128,5 @@ class PostProcessJobs(object):
         with open(path, 'w') as f:
             f.write(template.render(context))
 
+    def pack(self, files):
+        utils.pack_files(name=os.path.join(TEMPLATE_DIR, 'default.tgz'), files=files)
