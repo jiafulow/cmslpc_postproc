@@ -43,7 +43,9 @@ main() {
 
   python rootpy_trackbuilding3.py $ANALYSIS $JOBID
   [ -f histos_tbb.root ] && mv histos_tbb.root histos_tbb_$JOBID.root
+  [ -f histos_tbb.npz  ] && mv histos_tbb.npz  histos_tbb_$JOBID.npz
   [ -f histos_tbc.root ] && mv histos_tbc.root histos_tbc_$JOBID.root
+  [ -f histos_tbc.npz  ] && mv histos_tbc.npz  histos_tbc_$JOBID.npz
 
   echo "$(date) - $CONDOR_EXEC - INFO - cleanup"
   tar tzf $TARBALL | xargs rm -rf

@@ -7,7 +7,7 @@ jobs = PostProcessJobs()
 
 
 input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_9_2_3_patch1/src/L1TMuonSimulations/Analyzers/test2/'
-input_files = ['rootpy_trackbuilding3.py', 'histos_tb.9.npz', 'encoder.9.npz', 'model.9.h5', 'model_weights.9.h5']
+input_files = ['rootpy_trackbuilding3.py', 'histos_tb.10.npz', 'chsq.10.npz', 'model.10.h5', 'model_weights.10.h5']
 prepend_input_dir = lambda x: os.path.join(input_dir, x)
 jobs.pack(map(prepend_input_dir, input_files))
 
