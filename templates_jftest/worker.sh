@@ -42,6 +42,7 @@ main() {
   echo "$(date) - $CONDOR_EXEC - INFO - stand back I'm going to try Science"
 
   python rootpy_trackbuilding3.py $ANALYSIS $JOBID
+  #python rootpy_trackbuilding3_2GeV.py $ANALYSIS $JOBID
   [ -f histos_tbb.root ] && mv histos_tbb.root histos_tbb_$JOBID.root
   [ -f histos_tbb.npz  ] && mv histos_tbb.npz  histos_tbb_$JOBID.npz
   [ -f histos_tbc.root ] && mv histos_tbc.root histos_tbc_$JOBID.root
