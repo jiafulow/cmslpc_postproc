@@ -41,16 +41,15 @@ main() {
 
   echo "$(date) - $CONDOR_EXEC - INFO - stand back I'm going to try Science"
 
-  #python rootpy_trackbuilding3.py $ANALYSIS $JOBID
-  python rootpy_trackbuilding3_2GeV.py $ANALYSIS $JOBID
-  #[ -f histos_tbb.root ] && mv histos_tbb.root histos_tbb_$JOBID.root
-  #[ -f histos_tbb.npz  ] && mv histos_tbb.npz  histos_tbb_$JOBID.npz
-  #[ -f histos_tbc.root ] && mv histos_tbc.root histos_tbc_$JOBID.root
-  #[ -f histos_tbc.npz  ] && mv histos_tbc.npz  histos_tbc_$JOBID.npz
-  [ -f histos_tbb_2GeV.root ] && mv histos_tbb_2GeV.root histos_tbb_2GeV_$JOBID.root
-  [ -f histos_tbb_2GeV.npz  ] && mv histos_tbb_2GeV.npz  histos_tbb_2GeV_$JOBID.npz
-  [ -f histos_tbc_2GeV.root ] && mv histos_tbc_2GeV.root histos_tbc_2GeV_$JOBID.root
-  [ -f histos_tbc_2GeV.npz  ] && mv histos_tbc_2GeV.npz  histos_tbc_2GeV_$JOBID.npz
+  python rootpy_trackbuilding4.py $ANALYSIS $JOBID
+  [ -f histos_tba.root ] && mv histos_tba.root histos_tba_$JOBID.root
+  [ -f histos_tba.npz  ] && mv histos_tba.npz  histos_tba_$JOBID.npz
+  [ -f histos_tbb.root ] && mv histos_tbb.root histos_tbb_$JOBID.root
+  [ -f histos_tbb.npz  ] && mv histos_tbb.npz  histos_tbb_$JOBID.npz
+  [ -f histos_tbc.root ] && mv histos_tbc.root histos_tbc_$JOBID.root
+  [ -f histos_tbc.npz  ] && mv histos_tbc.npz  histos_tbc_$JOBID.npz
+  [ -f histos_tbd.root ] && mv histos_tbd.root histos_tbd_$JOBID.root
+  [ -f histos_tbd.npz  ] && mv histos_tbd.npz  histos_tbd_$JOBID.npz
 
   echo "$(date) - $CONDOR_EXEC - INFO - cleanup"
   tar tzf $TARBALL | xargs rm -rf
