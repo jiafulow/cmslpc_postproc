@@ -7,7 +7,7 @@ jobs = PostProcessJobs()
 
 
 input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_9_2_3_patch1/src/L1TMuonSimulations/Analyzers/test2/'
-input_files = ['rootpy_trackbuilding4.py', 'encoder.py', 'histos_tb.12.npz', 'model.12.h5', 'model_weights.12.h5', 'model.12.json', 'model_discr.12.h5', 'model_discr_weights.12.h5', 'model_discr.12.json']
+input_files = ['rootpy_trackbuilding4.py', 'encoder.py', 'histos_tb.13.npz', 'model.13.h5', 'model_weights.13.h5', 'model.13.json']
 prepend_input_dir = lambda x: os.path.join(input_dir, x)
 jobs.pack(map(prepend_input_dir, input_files))
 
@@ -24,7 +24,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest2',
-    src=range(40), # max: 100
+    src=range(50), # max: 100
     dst='',
     analysis='rates',
     no_submit=True,
@@ -35,7 +35,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest3',
-    src=range(40), # max: 800
+    src=range(30), # max: 800
     dst='',
     analysis='effie',
     no_submit=True,
