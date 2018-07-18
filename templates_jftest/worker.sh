@@ -14,6 +14,13 @@ readonly ANALYSIS="$1"
 readonly JOBID="$2"
 
 main() {
+  echo "$(date) - $CONDOR_EXEC - INFO - condor_scratch: $_CONDOR_SCRATCH_DIR"
+  echo "$(date) - $CONDOR_EXEC - INFO - pwd: $PWD"
+  echo "$(date) - $CONDOR_EXEC - INFO - args: $ANALYSIS $JOBID"
+
+  echo "$(date) - $CONDOR_EXEC - INFO - Unpacking files"
+  tar xzf $TARBALL
+
   echo "$(date) - $CONDOR_EXEC - INFO - Setting up $SUBMIT_CMSSW_VERSION"
 
   # Setup the CMS software environment.
@@ -22,17 +29,15 @@ main() {
 
   # Checkout the CMSSW release and set the runtime environment. These
   # commands are often invoked by their aliases "cmsrel" and "cmsenv".
-  scram project CMSSW "$SUBMIT_CMSSW_VERSION"
+  #scram project CMSSW "$SUBMIT_CMSSW_VERSION"
   cd "$SUBMIT_CMSSW_VERSION/src"
   eval "$(scramv1 runtime -sh)"
 
+  echo "$(date) - $CONDOR_EXEC - INFO - Setting up virtualenv"
+  source venv/bin/activate
+
   # Change back to the worker node's scratch directory.
   cd "$_CONDOR_SCRATCH_DIR"
-
-  echo "$(date) - $CONDOR_EXEC - INFO - Unpacking files"
-  tar xzf $TARBALL
-
-  echo "$(date) - $CONDOR_EXEC - INFO - args: $ANALYSIS $JOBID"
 
   echo "$(date) - $CONDOR_EXEC - INFO - pwd: $PWD"
 
