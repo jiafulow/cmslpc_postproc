@@ -94,6 +94,7 @@ class PostProcessJobs(object):
             shutil.copy(os.path.join(TEMPLATE_DIR, 'worker.sh'), dagdir)  # preserve executable permission on worker.sh
             self._generate_from_template('worker.sh', os.path.join(dagdir, 'worker.sh'), context)
             shutil.copy(os.path.join(TEMPLATE_DIR, 'default.tgz'), dagdir)
+            shutil.copy(os.path.join(TEMPLATE_DIR, 'FrameworkJobReport.xml'), dagdir)
             #self._generate_from_template('postprocess.py', os.path.join(dagdir, 'postprocess.py'), context)
             #shutil.copy(os.path.join(TEMPLATE_DIR, 'keep_and_drop.txt'), dagdir)
         # Unless otherwise directed, submit the DAG input file to DAGMan.

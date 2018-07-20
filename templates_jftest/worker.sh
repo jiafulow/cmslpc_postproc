@@ -44,9 +44,18 @@ main() {
   echo "$(date) - $CONDOR_EXEC - INFO - ls"
   ls -l
 
-  echo "$(date) - $CONDOR_EXEC - INFO - stand back I'm going to try Science"
+  # Do Science
+  echo "$(date) - $CONDOR_EXEC - INFO - stand back I'm going to try Science!"
 
   python rootpy_trackbuilding5.py $ANALYSIS $JOBID
+
+  EXIT_STATUS=$?
+  ERROR_TYPE=""
+  ERROR_MESSAGE="This is an error message."
+
+  echo "$(date) - $CONDOR_EXEC - INFO - clean up etc"
+
+  # Rename output files
   [ -f histos_tba.root ] && mv histos_tba.root histos_tba_$JOBID.root
   [ -f histos_tba.npz  ] && mv histos_tba.npz  histos_tba_$JOBID.npz
   [ -f histos_tbb.root ] && mv histos_tbb.root histos_tbb_$JOBID.root
@@ -56,7 +65,18 @@ main() {
   [ -f histos_tbd.root ] && mv histos_tbd.root histos_tbd_$JOBID.root
   [ -f histos_tbd.npz  ] && mv histos_tbd.npz  histos_tbd_$JOBID.npz
 
-  echo "$(date) - $CONDOR_EXEC - INFO - cleanup"
+  # Prepare reports
+  if [ $EXIT_STATUS -ne 0 ]; then
+    cat << EOF > FrameworkJobReport.xml
+<FrameworkJobReport>
+<FrameworkError ExitStatus="$EXIT_STATUS" Type="$ERROR_TYPE" >
+$ERROR_MESSAGE
+</FrameworkError>
+</FrameworkJobReport>
+EOF
+  fi
+
+  # Clean up
   tar tzf $TARBALL | xargs rm -rf
   rm $TARBALL
 
@@ -64,7 +84,7 @@ main() {
   ls -l
 
   echo "$(date) - $CONDOR_EXEC - INFO - Science complete!"
-  exit 0
+  exit $EXIT_STATUS
 }
 main
 

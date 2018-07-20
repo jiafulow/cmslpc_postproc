@@ -4,7 +4,7 @@ should_transfer_files = YES
 
 executable = worker.sh
 #arguments = {{ analysis }} $(url)
-transfer_input_files = default.tgz
+transfer_input_files = default.tgz,FrameworkJobReport.xml
 output = logs/job_$(Cluster)_$(Process).out
 error = logs/job_$(Cluster)_$(Process).err
 log = logs/job_$(Cluster)_$(Process).log
