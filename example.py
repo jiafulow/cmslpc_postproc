@@ -1,7 +1,8 @@
 import os
 
-from core import PostProcessJobs
+print 'Using CMSSW base: {0}'.format(os.environ['CMSSW_BASE'])
 
+from core import PostProcessJobs
 
 jobs = PostProcessJobs()
 
@@ -26,7 +27,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest2',
-    src=range(33), # max: 63
+    src=range(30,63), # max: 63
     dst='',
     analysis='rates',
     no_submit=True,

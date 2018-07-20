@@ -33,15 +33,15 @@ source /cvmfs/cms.cern.ch/cmsset_default.sh
 cd "$SUBMIT_CMSSW_VERSION/src"
 eval "$(scramv1 runtime -sh)"
 
-echo "$(date) - $CONDOR_EXEC - INFO - Setting up virtualenv"
-source venv/bin/activate
+#echo "$(date) - $CONDOR_EXEC - INFO - Setting up virtualenv"
+#source venv/bin/activate
 
 # Change back to the worker node's scratch directory.
 cd "$_CONDOR_SCRATCH_DIR"
 
 echo "$(date) - $CONDOR_EXEC - INFO - pwd: $PWD"
 
-echo "$(date) - $CONDOR_EXEC - INFO - ls"
+echo "$(date) - $CONDOR_EXEC - INFO - ls: -"
 ls -l
 
 # Do Science
@@ -79,8 +79,9 @@ fi
 # Clean up
 tar tzf $TARBALL | xargs rm -rf
 rm $TARBALL
+rm *.pyc
 
-echo "$(date) - $CONDOR_EXEC - INFO - ls"
+echo "$(date) - $CONDOR_EXEC - INFO - ls: -"
 ls -l
 
 echo "$(date) - $CONDOR_EXEC - INFO - Science complete!"
