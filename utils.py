@@ -70,11 +70,11 @@ def xrdfs_locate_root_files(url):
             urls.extend(xrdfs_locate_root_files(url))
     return urls
 
-def pack_files(name='default.tgz', mode='w:gz', files=None):
+def pack_files(name='default.tgz', mode='w:gz', dereference=True, files=None):
     """Add user files into a tarball
     """
     files = files or []
-    with tarfile.open(name, mode) as tar:
+    with tarfile.open(name, mode, dereference=dereference) as tar:
         for globname in files:
             filenames = glob.glob(globname)
             if not filenames:
