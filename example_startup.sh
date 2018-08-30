@@ -1,7 +1,7 @@
 #export SCRAM_ARCH=slc6_amd64_gcc630
 #source /cvmfs/cms.cern.ch/cmsset_default.sh
 
-cd CMSSW_9_3_11/src
+cd CMSSW_10_1_7/src
 cmsenv
 cd -
 

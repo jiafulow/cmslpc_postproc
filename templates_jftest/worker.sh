@@ -64,6 +64,8 @@ echo "$(date) - $CONDOR_EXEC - INFO - Postprocessing"
 [ -f histos_tbc.npz  ] && mv histos_tbc.npz  histos_tbc_$JOBID.npz
 [ -f histos_tbd.root ] && mv histos_tbd.root histos_tbd_$JOBID.root
 [ -f histos_tbd.npz  ] && mv histos_tbd.npz  histos_tbd_$JOBID.npz
+[ -f histos_tbe.root ] && mv histos_tbe.root histos_tbe_$JOBID.root
+[ -f histos_tbe.npz  ] && mv histos_tbe.npz  histos_tbe_$JOBID.npz
 
 # Prepare reports
 if [ $EXIT_STATUS -ne 0 ]; then
