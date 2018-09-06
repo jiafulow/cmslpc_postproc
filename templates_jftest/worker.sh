@@ -14,6 +14,7 @@ readonly ANALYSIS="$1"
 readonly JOBID="$2"
 
 
+echo "$(date) - $CONDOR_EXEC - INFO - home: $HOME"
 echo "$(date) - $CONDOR_EXEC - INFO - condor_scratch: $_CONDOR_SCRATCH_DIR"
 echo "$(date) - $CONDOR_EXEC - INFO - pwd: $PWD"
 echo "$(date) - $CONDOR_EXEC - INFO - args: $ANALYSIS $JOBID"
@@ -52,6 +53,10 @@ python rootpy_trackbuilding6.py $ANALYSIS $JOBID
 EXIT_STATUS=$?
 ERROR_TYPE=""
 ERROR_MESSAGE="This is an error message."
+
+if [ $EXIT_STATUS -ne 0 ]; then
+  echo "$(date) - $CONDOR_EXEC - ERROR - Job has failed!"
+fi
 
 echo "$(date) - $CONDOR_EXEC - INFO - Postprocessing"
 
