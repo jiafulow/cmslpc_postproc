@@ -56,6 +56,14 @@ ERROR_MESSAGE="This is an error message."
 
 if [ $EXIT_STATUS -ne 0 ]; then
   echo "$(date) - $CONDOR_EXEC - ERROR - Job has failed!"
+  # Write report
+  cat << EOF > FrameworkJobReport.xml
+<FrameworkJobReport>
+<FrameworkError ExitStatus="$EXIT_STATUS" Type="$ERROR_TYPE" >
+$ERROR_MESSAGE
+</FrameworkError>
+</FrameworkJobReport>
+EOF
 fi
 
 echo "$(date) - $CONDOR_EXEC - INFO - Postprocessing"
@@ -72,17 +80,6 @@ echo "$(date) - $CONDOR_EXEC - INFO - Postprocessing"
 [ -f histos_tbe.root ] && mv histos_tbe.root histos_tbe_$JOBID.root
 [ -f histos_tbe.npz  ] && mv histos_tbe.npz  histos_tbe_$JOBID.npz
 
-# Prepare reports
-if [ $EXIT_STATUS -ne 0 ]; then
-  cat << EOF > FrameworkJobReport.xml
-<FrameworkJobReport>
-<FrameworkError ExitStatus="$EXIT_STATUS" Type="$ERROR_TYPE" >
-$ERROR_MESSAGE
-</FrameworkError>
-</FrameworkJobReport>
-EOF
-fi
-
 # Clean up
 tar tzf $TARBALL | xargs rm -rf
 rm -rf $TARBALL
@@ -91,5 +88,4 @@ rm -rf *.pyc
 echo "$(date) - $CONDOR_EXEC - INFO - ls: -"
 ls -l
 
-echo "$(date) - $CONDOR_EXEC - INFO - Science complete!"
 exit $EXIT_STATUS
