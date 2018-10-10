@@ -48,7 +48,7 @@ ls -l
 # Do Science
 echo "$(date) - $CONDOR_EXEC - INFO - Stand back I'm going to try Science!"
 
-python rootpy_trackbuilding6.py $ANALYSIS $JOBID
+python rootpy_trackbuilding7.py $ANALYSIS $JOBID
 
 EXIT_STATUS=$?
 ERROR_TYPE=""
