@@ -68,18 +68,6 @@ fi
 
 echo "$(date) - $CONDOR_EXEC - INFO - Postprocessing"
 
-# Rename output files
-[ -f histos_tba.root ] && mv histos_tba.root histos_tba_$JOBID.root
-[ -f histos_tba.npz  ] && mv histos_tba.npz  histos_tba_$JOBID.npz
-[ -f histos_tbb.root ] && mv histos_tbb.root histos_tbb_$JOBID.root
-[ -f histos_tbb.npz  ] && mv histos_tbb.npz  histos_tbb_$JOBID.npz
-[ -f histos_tbc.root ] && mv histos_tbc.root histos_tbc_$JOBID.root
-[ -f histos_tbc.npz  ] && mv histos_tbc.npz  histos_tbc_$JOBID.npz
-[ -f histos_tbd.root ] && mv histos_tbd.root histos_tbd_$JOBID.root
-[ -f histos_tbd.npz  ] && mv histos_tbd.npz  histos_tbd_$JOBID.npz
-[ -f histos_tbe.root ] && mv histos_tbe.root histos_tbe_$JOBID.root
-[ -f histos_tbe.npz  ] && mv histos_tbe.npz  histos_tbe_$JOBID.npz
-
 # Clean up
 tar tzf $TARBALL | xargs rm -rf
 rm -rf $TARBALL
