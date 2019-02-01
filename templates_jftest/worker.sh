@@ -10,6 +10,7 @@ readonly SUBMIT_CMSSW_VERSION="{{ environ['CMSSW_VERSION'] }}"
 readonly CONDOR_EXEC="$(basename $0)"
 export CONDOR_EXEC
 readonly TARBALL="default.tgz"
+readonly EXE="python rootpy_trackbuilding8.py"
 readonly ANALYSIS="$1"
 readonly JOBID="$2"
 
@@ -48,7 +49,7 @@ ls -l
 # Do Science
 echo "$(date) - $CONDOR_EXEC - INFO - Stand back I'm going to try Science!"
 
-python rootpy_trackbuilding7.py $ANALYSIS $JOBID
+$EXE $ANALYSIS $JOBID
 
 EXIT_STATUS=$?
 ERROR_TYPE=""

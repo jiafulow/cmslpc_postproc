@@ -7,8 +7,8 @@ from core import PostProcessJobs
 jobs = PostProcessJobs()
 
 
-input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_10_1_5/src/L1TMuonSimulations/Analyzers/test7/'
-input_files = ['rootpy_trackbuilding7.py', 'nn_*.py', 'pattern_bank.20.npz', 'model.20.h5', 'model_weights.20.h5', 'model.20.json']
+input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_10_4_0/src/L1TMuonSimulations/Analyzers/test7/'
+input_files = ['rootpy_trackbuilding8.py', 'nn_*.py', 'pattern_bank_omtf.22.npz', 'model.20.h5', 'model_weights.20.h5', 'model.20.json']
 input_files = map(lambda x: os.path.join(input_dir, x), input_files)  # prepend input dir
 cmssw_base = os.environ['CMSSW_BASE']
 input_files += [cmssw_base]  # include CMSSW base
@@ -16,9 +16,9 @@ jobs.pack(input_files)
 
 jobs.submit(
     tag='jftest1',
-    src=range(200), # max: 200
+    src=range(100), # max: 100
     dst='',
-    analysis='application',
+    analysis='roads',
     no_submit=True,
     commands={
         '+ProjectName': 'cms.org.ufl',
@@ -49,7 +49,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest4',
-    src=range(164), # max: 164
+    src=range(118), # max: 118
     dst='',
     analysis='mixing',
     no_submit=True,
