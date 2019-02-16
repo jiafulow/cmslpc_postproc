@@ -11,8 +11,9 @@ readonly CONDOR_EXEC="$(basename $0)"
 export CONDOR_EXEC
 readonly TARBALL="default.tgz"
 readonly EXE="python rootpy_trackbuilding8.py"
-readonly ANALYSIS="$1"
-readonly JOBID="$2"
+readonly ALGO="$1"
+readonly ANALYSIS="$2"
+readonly JOBID="$3"
 
 
 echo "$(date) - $CONDOR_EXEC - INFO - home: $HOME"
@@ -35,8 +36,8 @@ source /cvmfs/cms.cern.ch/cmsset_default.sh
 cd "$SUBMIT_CMSSW_VERSION/src"
 eval "$(scramv1 runtime -sh)"
 
-echo "$(date) - $CONDOR_EXEC - INFO - Setting up virtualenv"
-source venv/bin/activate
+#echo "$(date) - $CONDOR_EXEC - INFO - Setting up virtualenv"
+#source venv/bin/activate
 
 # Change back to the worker node's scratch directory.
 cd "$_CONDOR_SCRATCH_DIR"
@@ -49,7 +50,7 @@ ls -l
 # Do Science
 echo "$(date) - $CONDOR_EXEC - INFO - Stand back I'm going to try Science!"
 
-$EXE $ANALYSIS $JOBID
+$EXE $ALGO $ANALYSIS $JOBID
 
 EXIT_STATUS=$?
 ERROR_TYPE=""

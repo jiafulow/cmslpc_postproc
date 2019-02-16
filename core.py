@@ -22,7 +22,7 @@ class PostProcessJobs(object):
             trim_blocks=True,
         )
 
-    def submit(self, src, dst, analysis=None, tag=None, is_data=False, commands={}, no_submit=False):
+    def submit(self, src, dst, algo=None, analysis=None, tag=None, is_data=False, commands={}, no_submit=False):
         """Submit postprocessing jobs to HTCondor's DAGMan.
 
         DAGMan jobs can be retried automatically and should jobs fail, users can
@@ -40,6 +40,8 @@ class PostProcessJobs(object):
         dst : url
             The XRootD url of the output directory for the postprocessed ntuples.
             The directory will only be created if jobs are submitted.
+        algo : str, optional
+            The algorithm type used in the user script.
         analysis : str, optional
             The analysis mode used in the user script.
         tag : str, optional
@@ -84,6 +86,7 @@ class PostProcessJobs(object):
                 'environ': os.environ,
                 #'urls': utils.xrdfs_locate_root_files(src),
                 'urls': src,
+                'algo': algo,
                 'analysis': analysis,
                 'destination': dst,
                 'is_data': is_data,

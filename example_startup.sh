@@ -1,12 +1,12 @@
-#export SCRAM_ARCH=slc6_amd64_gcc630
+#export SCRAM_ARCH=slc6_amd64_gcc700
 #source /cvmfs/cms.cern.ch/cmsset_default.sh
 
-cd CMSSW_10_1_7/src
+cd CMSSW_10_4_0/src
 cmsenv
 cd -
 
+# CMSConnect
 source ~/software/connect-client/client_source.sh
-
 alias connsetup='connect setup --replace-keys jiafulow@login.uscms.org'
 alias connnode='connect submit node'
 
