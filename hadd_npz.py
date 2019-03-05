@@ -17,7 +17,7 @@ class Hadd(object):
         print('Pass "-f" argument to force re-creation of output file.')
 
     for i, s in enumerate(source):
-      print('hadd Source file {0}: {1}'.format(i, s))
+      print('hadd Source file {0}: {1}'.format(i+1, s))
       with np.load(s) as data:
         if i == 0:
           for k in data.files:

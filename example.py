@@ -7,7 +7,7 @@ from core import PostProcessJobs
 jobs = PostProcessJobs()
 
 input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_10_4_0/src/L1TMuonSimulations/Analyzers/test7/'
-input_files = ['rootpy_trackbuilding8.py', 'nn_*.py', 'pattern_bank_omtf.24.npz', 'model.24.h5', 'model_weights.24.h5', 'model.24.json', 'model_omtf.24.h5', 'model_omtf_weights.24.h5', 'model_omtf.24.json']
+input_files = ['rootpy_trackbuilding8.py', 'nn_*.py', 'pattern_bank_omtf.25.npz', 'model.25.h5', 'model_weights.25.h5', 'model.25.json', 'model_omtf.25.h5', 'model_omtf_weights.25.h5', 'model_omtf.25.json']
 input_files = map(lambda x: os.path.join(input_dir, x), input_files)  # prepend input dir
 cmssw_base = os.environ['CMSSW_BASE']
 input_files += [cmssw_base]  # include CMSSW base
@@ -15,7 +15,7 @@ jobs.pack(input_files)
 
 jobs.submit(
     tag='jftest1',
-    src=range(200), # max: 200
+    src=range(100), # max: 100
     dst='',
     algo='default',
     analysis='roads',
@@ -39,7 +39,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest3',
-    src=range(30), # max: 200
+    src=range(30), # max: 100
     dst='',
     algo='default',
     analysis='effie',
@@ -63,7 +63,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest11',
-    src=range(100), # max: 100
+    src=range(50), # max: 50
     dst='',
     algo='omtf',
     analysis='roads',
@@ -75,7 +75,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest13',
-    src=range(30), # max: 100
+    src=range(20), # max: 50
     dst='',
     algo='omtf',
     analysis='effie',
