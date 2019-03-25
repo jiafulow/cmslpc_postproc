@@ -62,6 +62,18 @@ jobs.submit(
 )
 
 jobs.submit(
+    tag='jftest5',
+    src=range(26), # max: 26
+    dst='',
+    algo='default',
+    analysis='collusion',
+    no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
+)
+
+jobs.submit(
     tag='jftest11',
     src=range(50), # max: 50
     dst='',
@@ -91,6 +103,18 @@ jobs.submit(
     dst='',
     algo='omtf',
     analysis='mixing',
+    no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
+)
+
+jobs.submit(
+    tag='jftest15',
+    src=range(26), # max: 26
+    dst='',
+    algo='omtf',
+    analysis='collusion',
     no_submit=True,
     commands={
         '+ProjectName': 'cms.org.ufl',
@@ -139,6 +163,18 @@ jobs.submit(
     dst='',
     algo='run3',
     analysis='mixing',
+    no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
+)
+
+jobs.submit(
+    tag='jftest25',
+    src=range(26), # max: 26
+    dst='',
+    algo='run3',
+    analysis='collusion',
     no_submit=True,
     commands={
         '+ProjectName': 'cms.org.ufl',
