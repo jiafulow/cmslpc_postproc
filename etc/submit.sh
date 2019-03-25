@@ -7,6 +7,8 @@ python example.py
 #cd PostProcessDAGs/jftest4 && connnode && cd -
 #cd PostProcessDAGs/jftest11 && connnode && cd -
 #cd PostProcessDAGs/jftest14 && connnode && cd -
+#cd PostProcessDAGs/jftest21 && connnode && cd -
+#cd PostProcessDAGs/jftest24 && connnode && cd -
 
 cd PostProcessDAGs/jftest3 && connnode && cd -
 cd PostProcessDAGs/jftest13 && connnode && cd -

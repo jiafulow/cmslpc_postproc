@@ -98,6 +98,54 @@ jobs.submit(
 )
 
 jobs.submit(
+    tag='jftest21',
+    src=range(100), # max: 100
+    dst='',
+    algo='run3',
+    analysis='roads',
+    no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
+)
+
+jobs.submit(
+    tag='jftest22',
+    src=range(30,63), # max: 63
+    dst='',
+    algo='run3',
+    analysis='rates',
+    no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
+)
+
+jobs.submit(
+    tag='jftest23',
+    src=range(30), # max: 100
+    dst='',
+    algo='run3',
+    analysis='effie',
+    no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
+)
+
+jobs.submit(
+    tag='jftest24',
+    src=range(192), # max: 192
+    dst='',
+    algo='run3',
+    analysis='mixing',
+    no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
+)
+
+jobs.submit(
     tag='jftest2_140',
     src=range(20,56), # max: 56
     dst='',
