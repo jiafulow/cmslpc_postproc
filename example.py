@@ -7,7 +7,12 @@ from core import PostProcessJobs
 jobs = PostProcessJobs()
 
 input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_10_4_0/src/L1TMuonSimulations/Analyzers/test7/'
-input_files = ['rootpy_trackbuilding8.py', 'nn_*.py', 'pattern_bank_omtf.25.npz', 'model.25.h5', 'model_weights.25.h5', 'model.25.json', 'model_omtf.25.h5', 'model_omtf_weights.25.h5', 'model_omtf.25.json']
+input_files = [
+    'rootpy_trackbuilding9.py', 'nn_*.py', 'pattern_bank_18patt.26.npz',
+    'model.26.h5', 'model_weights.26.h5', 'model.26.json',
+    'model_omtf.26.h5', 'model_omtf_weights.26.h5', 'model_omtf.26.json',
+    'model_run3.26.h5', 'model_run3_weights.26.h5', 'model_run3.26.json',
+]
 input_files = map(lambda x: os.path.join(input_dir, x), input_files)  # prepend input dir
 cmssw_base = os.environ['CMSSW_BASE']
 input_files += [cmssw_base]  # include CMSSW base

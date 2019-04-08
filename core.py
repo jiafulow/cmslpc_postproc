@@ -133,4 +133,15 @@ class PostProcessJobs(object):
             f.write(template.render(context))
 
     def pack(self, files):
-        utils.pack_files(name=os.path.join(TEMPLATE_DIR, 'default.tgz'), files=files)
+        def filter_function(tarinfo):
+            if tarinfo.name.endswith('venv'):
+                return None
+            else:
+                return tarinfo
+
+        shutil.copy(files[0], os.path.join(TEMPLATE_DIR, 'my_app.py'))  # assume files[0] is the executable, make a copy
+        files[0] = os.path.join(TEMPLATE_DIR, 'my_app.py')
+
+        utils.pack_files(name=os.path.join(TEMPLATE_DIR, 'default.tgz'), files=files, filter_func=filter_function)
+
+        os.remove(files[0])  # remove the copy

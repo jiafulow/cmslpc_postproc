@@ -10,7 +10,7 @@ readonly SUBMIT_CMSSW_VERSION="{{ environ['CMSSW_VERSION'] }}"
 readonly CONDOR_EXEC="$(basename $0)"
 export CONDOR_EXEC
 readonly TARBALL="default.tgz"
-readonly EXE="python rootpy_trackbuilding8.py"
+readonly EXE="python my_app.py"
 readonly ALGO="$1"
 readonly ANALYSIS="$2"
 readonly JOBID="$3"

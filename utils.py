@@ -70,7 +70,7 @@ def xrdfs_locate_root_files(url):
             urls.extend(xrdfs_locate_root_files(url))
     return urls
 
-def pack_files(name='default.tgz', mode='w:gz', dereference=True, files=None):
+def pack_files(name='default.tgz', mode='w:gz', dereference=True, files=None, filter_func=None):
     """Add user files into a tarball
     """
     files = files or []
@@ -80,6 +80,6 @@ def pack_files(name='default.tgz', mode='w:gz', dereference=True, files=None):
             if not filenames:
                 raise Exception("The input file '%s' cannot be found." % globname)
             for filename in filenames:
-                directory = os.path.basename(filename)
-                tar.add(filename, directory, recursive=True)
+                arcname = os.path.basename(filename)
+                tar.add(filename, arcname, recursive=True, filter=filter_func)
     return
