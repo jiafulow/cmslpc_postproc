@@ -2,6 +2,13 @@
 universe = vanilla
 should_transfer_files = YES
 
+## For condor-g
+## Make sure you do: export X509_USER_PROXY=`voms-proxy-info -path`
+#universe = grid
+#grid_resource = condor red-gw1.unl.edu red-gw1.unl.edu:9619
+#use_x509userproxy = TRUE
+#x509userproxy = $ENV(X509_USER_PROXY)
+
 executable = worker.sh
 transfer_input_files = default.tgz,FrameworkJobReport.xml
 output = logs/job_$(Cluster)_$(Process).out

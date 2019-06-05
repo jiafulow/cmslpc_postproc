@@ -8,10 +8,10 @@ jobs = PostProcessJobs()
 
 input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_10_4_0/src/L1TMuonSimulations/Analyzers/test7/'
 input_files = [
-    'rootpy_trackbuilding9.py', 'nn_*.py', 'pattern_bank_18patt.26.npz',
-    'model.26.h5', 'model_weights.26.h5', 'model.26.json',
-    'model_omtf.26.h5', 'model_omtf_weights.26.h5', 'model_omtf.26.json',
-    'model_run3.26.h5', 'model_run3_weights.26.h5', 'model_run3.26.json',
+    'rootpy_trackbuilding9.py', 'nn_*.py', 'pattern_bank_18patt.27.npz',
+    'model.27.h5', 'model_weights.27.h5', 'model.27.json',
+    'model_omtf.27.h5', 'model_omtf_weights.27.h5', 'model_omtf.27.json',
+    'model_run3.27.h5', 'model_run3_weights.27.h5', 'model_run3.27.json',
 ]
 input_files = map(lambda x: os.path.join(input_dir, x), input_files)  # prepend input dir
 cmssw_base = os.environ['CMSSW_BASE']
@@ -68,7 +68,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest5',
-    src=range(26), # max: 26
+    src=range(51), # max: 51
     dst='',
     algo='default',
     analysis='collusion',
@@ -116,7 +116,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest15',
-    src=range(26), # max: 26
+    src=range(51), # max: 51
     dst='',
     algo='omtf',
     analysis='collusion',
@@ -176,7 +176,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest25',
-    src=range(26), # max: 26
+    src=range(51), # max: 51
     dst='',
     algo='run3',
     analysis='collusion',

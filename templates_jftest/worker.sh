@@ -50,6 +50,7 @@ ls -l
 # Do Science
 echo "$(date) - $CONDOR_EXEC - INFO - Stand back I'm going to try Science!"
 
+export ROOTPY_GRIDMODE="true"
 $EXE $ALGO $ANALYSIS $JOBID
 
 EXIT_STATUS=$?
