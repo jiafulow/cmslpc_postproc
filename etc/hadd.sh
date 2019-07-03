@@ -1,6 +1,7 @@
 #python cmslpc_postproc/hadd_npz.py -f histos_tba_add.npz PostProcessDAGs/jftest1/histos_tba_*.npz
 #python cmslpc_postproc/hadd_npz.py -f histos_tbd_add.npz PostProcessDAGs/jftest4/histos_tbd_*.npz
 #python cmslpc_postproc/hadd_npz.py -f histos_tbe_add.npz PostProcessDAGs/jftest5/histos_tbe_*.npz
+#python cmslpc_postproc/hadd_npz.py -f histos_tbf_add.npz PostProcessDAGs/jftest6/histos_tbf_*.npz
 #python cmslpc_postproc/hadd_npz.py -f histos_tba_omtf_add.npz PostProcessDAGs/jftest11/histos_tba_*.npz
 #python cmslpc_postproc/hadd_npz.py -f histos_tbd_omtf_add.npz PostProcessDAGs/jftest14/histos_tbd_*.npz
 #python cmslpc_postproc/hadd_npz.py -f histos_tbe_omtf_add.npz PostProcessDAGs/jftest15/histos_tbe_*.npz
