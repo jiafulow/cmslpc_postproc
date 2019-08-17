@@ -7,11 +7,17 @@ from core import PostProcessJobs
 jobs = PostProcessJobs()
 
 input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_10_4_0/src/L1TMuonSimulations/Analyzers/test7/'
+#input_files = [
+#    'rootpy_trackbuilding9.py', 'nn_*.py', 'pattern_bank_18patt.27.npz',
+#    'model.27.h5', 'model_weights.27.h5', 'model.27.json',
+#    'model_omtf.27.h5', 'model_omtf_weights.27.h5', 'model_omtf.27.json',
+#    'model_run3.27.h5', 'model_run3_weights.27.h5', 'model_run3.27.json',
+#]
 input_files = [
-    'rootpy_trackbuilding9.py', 'nn_*.py', 'pattern_bank_18patt.27.npz',
-    'model.27.h5', 'model_weights.27.h5', 'model.27.json',
-    'model_omtf.27.h5', 'model_omtf_weights.27.h5', 'model_omtf.27.json',
-    'model_run3.27.h5', 'model_run3_weights.27.h5', 'model_run3.27.json',
+    'rootpy_trackbuilding10.py', 'nn_*.py', 'pattern_bank_18patt.29.npz',
+    'model.29.h5', 'model_weights.29.h5', 'model.29.json',
+    'model_omtf.29.h5', 'model_omtf_weights.29.h5', 'model_omtf.29.json',
+    'model_run3.29.h5', 'model_run3_weights.29.h5', 'model_run3.29.json',
 ]
 input_files = map(lambda x: os.path.join(input_dir, x), input_files)  # prepend input dir
 cmssw_base = os.environ['CMSSW_BASE']
@@ -228,6 +234,18 @@ jobs.submit(
     dst='',
     algo='default',
     analysis='rates300',
+    no_submit=True,
+    commands={
+        '+ProjectName': 'cms.org.ufl',
+    },
+)
+
+jobs.submit(
+    tag='jftest3_200',
+    src=range(26), # max: 26
+    dst='',
+    algo='default',
+    analysis='effie200',
     no_submit=True,
     commands={
         '+ProjectName': 'cms.org.ufl',

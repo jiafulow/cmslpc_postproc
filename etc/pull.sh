@@ -10,7 +10,7 @@
 #cd PostProcessDAGs/jftest25 && connect pull && cd -
 
 cd PostProcessDAGs/jftest3 && connect pull && cd -
-#cd PostProcessDAGs/jftest13 && connect pull && cd -
+cd PostProcessDAGs/jftest3_200 && connect pull && cd -
 cd PostProcessDAGs/jftest2 && connect pull && cd -
 cd PostProcessDAGs/jftest2_140 && connect pull && cd -
 cd PostProcessDAGs/jftest2_250 && connect pull && cd -
