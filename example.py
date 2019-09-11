@@ -6,18 +6,10 @@ from core import PostProcessJobs
 
 jobs = PostProcessJobs()
 
-input_dir = '/home/jlow/L1MuonTrigger/P2_CMSSW_10_4_0/src/L1TMuonSimulations/Analyzers/test7/'
-#input_files = [
-#    'rootpy_trackbuilding9.py', 'nn_*.py', 'pattern_bank_18patt.27.npz',
-#    'model.27.h5', 'model_weights.27.h5', 'model.27.json',
-#    'model_omtf.27.h5', 'model_omtf_weights.27.h5', 'model_omtf.27.json',
-#    'model_run3.27.h5', 'model_run3_weights.27.h5', 'model_run3.27.json',
-#]
+input_dir = '/home/jlow/nobackup/L1MuonTrigger/P2_CMSSW_10_6_3/src/L1TMuonSimulations/Analyzers/test7/'
 input_files = [
-    'rootpy_trackbuilding10.py', 'nn_*.py', 'pattern_bank_18patt.29.npz',
+    'rootpy_trackbuilding11.py', 'nn_*.py', 'pattern_bank_18patt.29.npz',
     'model.29.h5', 'model_weights.29.h5', 'model.29.json',
-    'model_omtf.29.h5', 'model_omtf_weights.29.h5', 'model_omtf.29.json',
-    'model_run3.29.h5', 'model_run3_weights.29.h5', 'model_run3.29.json',
 ]
 input_files = map(lambda x: os.path.join(input_dir, x), input_files)  # prepend input dir
 cmssw_base = os.environ['CMSSW_BASE']
@@ -38,7 +30,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest2',
-    src=range(30,63), # max: 63
+    src=range(0,168), # max: 168
     dst='',
     algo='default',
     analysis='rates',
@@ -50,7 +42,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest3',
-    src=range(0,30), # max: 100
+    src=range(0,5), # max: 5
     dst='',
     algo='default',
     analysis='effie',
@@ -97,116 +89,8 @@ jobs.submit(
 )
 
 jobs.submit(
-    tag='jftest11',
-    src=range(50), # max: 50
-    dst='',
-    algo='omtf',
-    analysis='roads',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
-    tag='jftest13',
-    src=range(0,20), # max: 50
-    dst='',
-    algo='omtf',
-    analysis='effie',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
-    tag='jftest14',
-    src=range(192), # max: 192
-    dst='',
-    algo='omtf',
-    analysis='mixing',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
-    tag='jftest15',
-    src=range(26), # max: 26
-    dst='',
-    algo='omtf',
-    analysis='collusion',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
-    tag='jftest21',
-    src=range(100), # max: 100
-    dst='',
-    algo='run3',
-    analysis='roads',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
-    tag='jftest22',
-    src=range(30,63), # max: 63
-    dst='',
-    algo='run3',
-    analysis='rates',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
-    tag='jftest23',
-    src=range(0,30), # max: 100
-    dst='',
-    algo='run3',
-    analysis='effie',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
-    tag='jftest24',
-    src=range(192), # max: 192
-    dst='',
-    algo='run3',
-    analysis='mixing',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
-    tag='jftest25',
-    src=range(26), # max: 26
-    dst='',
-    algo='run3',
-    analysis='collusion',
-    no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
-)
-
-jobs.submit(
     tag='jftest2_140',
-    src=range(20,56), # max: 56
+    src=range(0,125), # max: 125
     dst='',
     algo='default',
     analysis='rates140',
@@ -218,7 +102,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest2_250',
-    src=range(50), # max: 50
+    src=range(0,250), # max: 250
     dst='',
     algo='default',
     analysis='rates250',
@@ -230,7 +114,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest2_300',
-    src=range(53), # max: 53
+    src=range(0,250), # max: 250
     dst='',
     algo='default',
     analysis='rates300',
@@ -242,7 +126,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest3_200',
-    src=range(26), # max: 26
+    src=range(33), # max: 33
     dst='',
     algo='default',
     analysis='effie200',
