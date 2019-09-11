@@ -1,6 +1,7 @@
 import os
 
-print 'Using CMSSW base: {0}'.format(os.environ['CMSSW_BASE'])
+#print 'Using CMSSW base: {0}'.format(os.environ['CMSSW_BASE'])
+print 'Using CMSSW base: {0}'.format('/home/jlow/nobackup/L1MuonTrigger/PostProcessJobs/CMSSW_10_4_0')
 
 from core import PostProcessJobs
 
@@ -12,7 +13,8 @@ input_files = [
     'model.29.h5', 'model_weights.29.h5', 'model.29.json',
 ]
 input_files = map(lambda x: os.path.join(input_dir, x), input_files)  # prepend input dir
-cmssw_base = os.environ['CMSSW_BASE']
+#cmssw_base = os.environ['CMSSW_BASE']
+cmssw_base = '/home/jlow/nobackup/L1MuonTrigger/PostProcessJobs/CMSSW_10_4_0'
 input_files += [cmssw_base]  # include CMSSW base
 jobs.pack(input_files)
 
