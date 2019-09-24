@@ -3,10 +3,8 @@
 # Automatically generated on {{ timestamp }}
 
 # The SCRAM architecture and CMSSW version of the submission environment.
-#readonly SUBMIT_SCRAM_ARCH="{{ environ['SCRAM_ARCH'] }}"
-#readonly SUBMIT_CMSSW_VERSION="{{ environ['CMSSW_VERSION'] }}"
-readonly SUBMIT_SCRAM_ARCH="slc6_amd64_gcc700"
-readonly SUBMIT_CMSSW_VERSION="CMSSW_10_4_0"
+readonly SUBMIT_SCRAM_ARCH="{{ environ['SCRAM_ARCH'] }}"
+readonly SUBMIT_CMSSW_VERSION="{{ environ['CMSSW_VERSION'] }}"
 
 # Capture the executable name and job input file from the command line.
 readonly CONDOR_EXEC="$(basename $0)"
