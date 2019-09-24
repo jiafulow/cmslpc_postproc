@@ -16,6 +16,11 @@ cmssw_base = os.environ['CMSSW_BASE']
 input_files += [cmssw_base]  # include CMSSW base
 jobs.pack(input_files)
 
+commands = {
+    '+ProjectName': 'cms.org.ufl',
+    '+REQUIRED_OS': '\"rhel7\"',
+}
+
 jobs.submit(
     tag='jftest1',
     src=range(100), # max: 100
@@ -23,116 +28,96 @@ jobs.submit(
     algo='default',
     analysis='roads',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest2',
-    src=range(0,168), # max: 168
+    src=range(80,168), # max: 168
     dst='',
     algo='default',
     analysis='rates',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest3',
-    src=range(0,5), # max: 5
+    src=range(0,3), # max: 3
     dst='',
     algo='default',
     analysis='effie',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest4',
-    src=range(192), # max: 192
+    src=range(228), # max: 228
     dst='',
     algo='default',
     analysis='mixing',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest5',
-    src=range(26), # max: 26
+    src=range(15), # max: 33
     dst='',
     algo='default',
     analysis='collusion',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest6',
-    src=range(30,100), # max: 100
+    src=range(100), # max: 100
     dst='',
     algo='default',
     analysis='augmentation',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest2_140',
-    src=range(0,125), # max: 125
+    src=range(60,125), # max: 125
     dst='',
     algo='default',
     analysis='rates140',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest2_250',
-    src=range(0,250), # max: 250
+    src=range(100,250), # max: 250
     dst='',
     algo='default',
     analysis='rates250',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest2_300',
-    src=range(0,250), # max: 250
+    src=range(100,250), # max: 250
     dst='',
     algo='default',
     analysis='rates300',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
 jobs.submit(
     tag='jftest3_200',
-    src=range(33), # max: 33
+    src=range(15,33), # max: 33
     dst='',
     algo='default',
     analysis='effie200',
     no_submit=True,
-    commands={
-        '+ProjectName': 'cms.org.ufl',
-    },
+    commands=commands,
 )
 
