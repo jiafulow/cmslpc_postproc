@@ -33,7 +33,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest2',
-    src=range(80,168), # max: 168
+    src=range(40,85), # max: 85
     dst='',
     algo='default',
     analysis='rates',
@@ -42,8 +42,38 @@ jobs.submit(
 )
 
 jobs.submit(
+    tag='jftest2_140',
+    src=range(30,63), # max: 63
+    dst='',
+    algo='default',
+    analysis='rates140',
+    no_submit=True,
+    commands=commands,
+)
+
+jobs.submit(
+    tag='jftest2_250',
+    src=range(50,125), # max: 125
+    dst='',
+    algo='default',
+    analysis='rates250',
+    no_submit=True,
+    commands=commands,
+)
+
+jobs.submit(
+    tag='jftest2_300',
+    src=range(0,111), # max: 111
+    dst='',
+    algo='default',
+    analysis='rates300',
+    no_submit=True,
+    commands=commands,
+)
+
+jobs.submit(
     tag='jftest3',
-    src=range(0,3), # max: 3
+    src=range(5), # max: 5
     dst='',
     algo='default',
     analysis='effie',
@@ -52,8 +82,18 @@ jobs.submit(
 )
 
 jobs.submit(
+    tag='jftest3_200',
+    src=range(33), # max: 33
+    dst='',
+    algo='default',
+    analysis='effie200',
+    no_submit=True,
+    commands=commands,
+)
+
+jobs.submit(
     tag='jftest4',
-    src=range(228), # max: 228
+    src=range(357), # max: 357
     dst='',
     algo='default',
     analysis='mixing',
@@ -63,7 +103,7 @@ jobs.submit(
 
 jobs.submit(
     tag='jftest5',
-    src=range(15), # max: 33
+    src=range(33), # max: 33
     dst='',
     algo='default',
     analysis='collusion',
@@ -77,46 +117,6 @@ jobs.submit(
     dst='',
     algo='default',
     analysis='augmentation',
-    no_submit=True,
-    commands=commands,
-)
-
-jobs.submit(
-    tag='jftest2_140',
-    src=range(60,125), # max: 125
-    dst='',
-    algo='default',
-    analysis='rates140',
-    no_submit=True,
-    commands=commands,
-)
-
-jobs.submit(
-    tag='jftest2_250',
-    src=range(100,250), # max: 250
-    dst='',
-    algo='default',
-    analysis='rates250',
-    no_submit=True,
-    commands=commands,
-)
-
-jobs.submit(
-    tag='jftest2_300',
-    src=range(100,250), # max: 250
-    dst='',
-    algo='default',
-    analysis='rates300',
-    no_submit=True,
-    commands=commands,
-)
-
-jobs.submit(
-    tag='jftest3_200',
-    src=range(15,33), # max: 33
-    dst='',
-    algo='default',
-    analysis='effie200',
     no_submit=True,
     commands=commands,
 )
